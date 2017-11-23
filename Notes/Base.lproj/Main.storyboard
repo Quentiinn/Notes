@@ -12,13 +12,13 @@
         <!--Notes-->
         <scene sceneID="VcT-B6-YVr">
             <objects>
-                <tableViewController id="smv-1z-T2D" sceneMemberID="viewController">
+                <tableViewController id="smv-1z-T2D" customClass="NotesTableViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="q7U-eU-YqC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="SIa-Qc-TNb" detailTextLabel="DsW-AF-n68" style="IBUITableViewCellStyleSubtitle" id="d89-tY-Hkm">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotesCell" textLabel="SIa-Qc-TNb" detailTextLabel="DsW-AF-n68" style="IBUITableViewCellStyleSubtitle" id="d89-tY-Hkm">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d89-tY-Hkm" id="DJt-FX-hs3">
@@ -129,6 +129,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Gu4-kI-oeB"/>
+        <segue reference="qMt-sq-9hi"/>
     </inferredMetricsTieBreakers>
 </document>
