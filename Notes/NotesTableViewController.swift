@@ -114,6 +114,20 @@ class NotesTableViewController: UITableViewController {
     }
     
     @IBAction func unwindFromAddEditNoteController(segue: UIStoryboardSegue){
-        
+        if segue.identifier == "saveUnwind"{
+            let sourceTableViewController = segue.source as! AddEditNoteTableViewController
+            if let notes = sourceTableViewController.note{
+                if let selectedIndexPath = tableView.indexPathForSelectedRow{
+                    // si clique sur +
+                    self.notes[selectedIndexPath.row] = notes
+                    tableView.reloadData()
+                }else{
+                    //clique sur un champ
+                    self.notes.append(notes)
+                    let newIndexPath = IndexPath(row: self.notes.count, section: 0)
+                    tableView.insertRows(at: [newIndexPath], with: .automatic)
+                }
+            }
+        }
     }
 }
