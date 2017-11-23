@@ -42,7 +42,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="V8H-8d-Tx5" kind="show" id="qMt-sq-9hi"/>
+                                    <segue destination="V8H-8d-Tx5" kind="show" identifier="EditNote" id="qMt-sq-9hi"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -67,7 +67,7 @@
         <!--Root View Controller-->
         <scene sceneID="JJg-14-hwY">
             <objects>
-                <tableViewController id="V8H-8d-Tx5" sceneMemberID="viewController">
+                <tableViewController id="V8H-8d-Tx5" customClass="AddEditNoteTableViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="VQn-rO-guM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -116,7 +116,25 @@
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Localisation" id="suP-c0-NLY">
-                                <cells/>
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="S94-IN-t5P">
+                                        <rect key="frame" x="0.0" y="255.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S94-IN-t5P" id="PWV-qT-XE7">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9HB-v0-eL6">
+                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
                             </tableViewSection>
                         </sections>
                         <connections>
@@ -124,9 +142,25 @@
                             <outlet property="delegate" destination="V8H-8d-Tx5" id="gNI-ug-LYz"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="WfK-wE-sAu"/>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="qiN-vr-rWs">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="gK2-Bg-YPu">
+                            <connections>
+                                <segue destination="hGT-oQ-COm" kind="unwind" unwindAction="unwindFromAddEditNoteControllerWithSegue:" id="0wu-eI-8j7"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="oG8-7p-X5N">
+                            <connections>
+                                <segue destination="hGT-oQ-COm" kind="unwind" identifier="saveUnwind" unwindAction="unwindFromAddEditNoteControllerWithSegue:" id="mwr-KZ-aqb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="notes" destination="qTG-od-jG9" id="Q7P-N8-DVe"/>
+                        <outlet property="titre" destination="nmO-lP-fXR" id="zLH-aA-Oij"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uX9-gY-oZF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="hGT-oQ-COm" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2928.8000000000002" y="689.5052473763119"/>
         </scene>
