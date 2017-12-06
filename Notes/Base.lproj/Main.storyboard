@@ -72,6 +72,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <mapView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="owp-at-tnr">
+                            <rect key="frame" x="0.0" y="317.5" width="375" height="194"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </mapView>
                         <sections>
                             <tableViewSection headerTitle="Title" id="KKE-oY-Rg2">
                                 <cells>
@@ -123,15 +127,6 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S94-IN-t5P" id="PWV-qT-XE7">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9HB-v0-eL6">
-                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -155,6 +150,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="map" destination="owp-at-tnr" id="f89-Xw-LYi"/>
                         <outlet property="notes" destination="qTG-od-jG9" id="Q7P-N8-DVe"/>
                         <outlet property="titre" destination="nmO-lP-fXR" id="zLH-aA-Oij"/>
                     </connections>

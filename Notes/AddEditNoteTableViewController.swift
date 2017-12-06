@@ -7,16 +7,36 @@
 //
 
 import UIKit
+import MapKit
 
 class AddEditNoteTableViewController: UITableViewController {
 
     
+    @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var titre: UITextField!
     @IBOutlet weak var notes: UITextField!
+    
     var note: Notes?
+    //let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
+    
+    
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        let annotation = MKPointAnnotation()
+        let initialLocation = CLLocationCoordinate2DMake(21.282778, -157.829444)
+        let initi = CLLocation(latitude : 21.282778, longitude : -157.829444)
+
+        annotation.coordinate = initialLocation;
+        annotation.title = "ICI"
+        annotation.subtitle = " je suis ici"
+        map.addAnnotation(annotation);
+        centerMapOnLocation(location: initi)
+        
+
+        self.map.showsUserLocation = true
         
         if let note = note {//edit mode
             titre.text = note.title
@@ -45,6 +65,14 @@ class AddEditNoteTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 1
+    }
+    
+    
+    let regionRadius: CLLocationDistance = 1000
+    func centerMapOnLocation(location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
+                                                                  regionRadius, regionRadius)
+        map.setRegion(coordinateRegion, animated: true)
     }
 
     /*
@@ -101,6 +129,9 @@ class AddEditNoteTableViewController: UITableViewController {
             note = Notes(title: titre.text!, date:Date() , content: notes.text!, latitude: 2, longitude: 1)
         }
     }
+    
+    
+    
  
 
 }
