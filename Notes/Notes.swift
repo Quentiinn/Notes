@@ -10,10 +10,10 @@ import Foundation
 
 class Notes{
     var title: String
-    var date: Date
+    var date: Date!
     var content: String?
-    var latitude: Float
-    var longitude: Float
+    var latitude: Float!
+    var longitude: Float!
     
     
     init(title: String, date: Date, content: String, latitude: Float, longitude: Float) {

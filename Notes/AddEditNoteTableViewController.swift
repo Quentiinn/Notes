@@ -8,35 +8,42 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class AddEditNoteTableViewController: UITableViewController {
+
+class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDelegate {
+
+    var locationManager:CLLocationManager!
+    var latitude: Double!
+    var longitude: Double!
 
     
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var titre: UITextField!
     @IBOutlet weak var notes: UITextField!
+    let position = CLLocationManager ()
+
+
     
     var note: Notes?
     //let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
     
     
+
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        let annotation = MKPointAnnotation()
-        let initialLocation = CLLocationCoordinate2DMake(21.282778, -157.829444)
-        let initi = CLLocation(latitude : 21.282778, longitude : -157.829444)
 
-        annotation.coordinate = initialLocation;
-        annotation.title = "ICI"
-        annotation.subtitle = " je suis ici"
-        map.addAnnotation(annotation);
-        centerMapOnLocation(location: initi)
+      
+
+        
+        
+        //var locManager = CLLocationManager()
+        //locManager.requestWhenInUseAuthorization()
         
 
-        self.map.showsUserLocation = true
+        
         
         if let note = note {//edit mode
             titre.text = note.title
@@ -128,6 +135,55 @@ class AddEditNoteTableViewController: UITableViewController {
         if segue.identifier == "saveUnwind"{
             note = Notes(title: titre.text!, date:Date() , content: notes.text!, latitude: 2, longitude: 1)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        determineMyCurrentLocation()
+    }
+    
+    func determineMyCurrentLocation() {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+            //locationManager.startUpdatingHeading()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        
+        // Call stopUpdatingLocation() to stop listening for location updates,
+        // other wise this function will be called every time when user location changes.
+        
+        // manager.stopUpdatingLocation()
+        
+        print("user latitude = \(userLocation.coordinate.latitude)")
+        print("user longitude = \(userLocation.coordinate.longitude)")
+        
+        let annotation = MKPointAnnotation()
+        let initialLocation = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
+        let initi = CLLocation(latitude : userLocation.coordinate.latitude, longitude : userLocation.coordinate.longitude)
+        
+        annotation.coordinate = initialLocation;
+        annotation.title = "ICI"
+        annotation.subtitle = " je suis ici"
+        map.addAnnotation(annotation);
+        centerMapOnLocation(location: initi)
+        
+        
+        latitude = userLocation.coordinate.latitude
+        longitude = userLocation.coordinate.longitude
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    {
+        print("Error \(error)")
     }
     
     

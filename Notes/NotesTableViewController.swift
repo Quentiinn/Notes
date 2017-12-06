@@ -124,8 +124,9 @@ class NotesTableViewController: UITableViewController {
                 }else{
                     //clique sur un champ
                     self.notes.append(notes)
-                    let newIndexPath = IndexPath(row: self.notes.count, section: 0)
-                    tableView.insertRows(at: [newIndexPath], with: .automatic)
+                    //let newIndexPath = IndexPath(row: self.notes.count, section: 0)
+                    //tableView.insertRows(at: [newIndexPath], with: .automatic)
+                    tableView.reloadData()
                 }
             }
         }
