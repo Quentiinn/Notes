@@ -288,6 +288,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = FU72X4P374;
 				INFOPLIST_FILE = Notes/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-fcomte.iut-bm.Notes";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -302,6 +303,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = FU72X4P374;
 				INFOPLIST_FILE = Notes/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.univ-fcomte.iut-bm.Notes";
 				PRODUCT_NAME = "$(TARGET_NAME)";

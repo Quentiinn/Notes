@@ -79,6 +79,8 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
                                                                   regionRadius, regionRadius)
+        
+        
         map.setRegion(coordinateRegion, animated: true)
     }
 
@@ -151,7 +153,7 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
-            //locationManager.startUpdatingHeading()
+            locationManager.startUpdatingHeading()
         }
     }
     
@@ -170,7 +172,9 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
         let initialLocation = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
         let initi = CLLocation(latitude : userLocation.coordinate.latitude, longitude : userLocation.coordinate.longitude)
         
-        annotation.coordinate = initialLocation;
+        
+        print("Latitude \(userLocation.coordinate.latitude)")
+        annotation.coordinate = initialLocation
         annotation.title = "ICI"
         annotation.subtitle = " je suis ici"
         map.addAnnotation(annotation);
