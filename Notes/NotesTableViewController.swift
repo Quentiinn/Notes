@@ -9,12 +9,28 @@
 import UIKit
 
 class NotesTableViewController: UITableViewController {
-    var notes: [Notes] = [
+    /*var notes: [Notes] = [
         Notes(title:"Test",date:Date(),content:"content test", latitude:45.4, longitude:7),
         Notes(title:"Test numero 2",date:Date(),content:"content test testtest", latitude:45.4, longitude:7)
-    ]
+    ]*/
+    var notes: [Notes] = []
 
+    
     override func viewDidLoad() {
+        //permet de recuperer les données
+        var data = [Note]()
+        do{
+            data = try context.fetch(Note.fetchRequest())
+            
+            for each in data {
+                print("Title : \(each.title!)\n")
+                let n: Notes = Notes(title: each.title!, date: each.date!, content: each.content!, latitude: each.latitude, longitude: each.longitude)
+                notes.append(n)
+            }
+        }catch{
+            
+        }
+
         super.viewDidLoad()
         
         
@@ -118,17 +134,41 @@ class NotesTableViewController: UITableViewController {
             let sourceTableViewController = segue.source as! AddEditNoteTableViewController
             if let notes = sourceTableViewController.note{
                 if let selectedIndexPath = tableView.indexPathForSelectedRow{
-                    // si clique sur +
+                    
+                    
+                    
+                    // si clique sur un champ
                     self.notes[selectedIndexPath.row] = notes
                     tableView.reloadData()
                 }else{
-                    //clique sur un champ
+                    //clique sur +
                     self.notes.append(notes)
+                    print(notes.title)
+                    //Ajout de note dans la bdd
+                    let note = Note(context: context)
+                    
+                    note.title = notes.title
+                    note.content = notes.content
+                    note.date = Date()
+                    note.latitude = 12
+                    note.longitude = 122
+                    
+                    appDelegate.saveContext()
+                    
                     //let newIndexPath = IndexPath(row: self.notes.count, section: 0)
                     //tableView.insertRows(at: [newIndexPath], with: .automatic)
                     tableView.reloadData()
                 }
             }
+            
+            
+            
+            
+            
+            
+            
+            
+            
         }
     }
 }
