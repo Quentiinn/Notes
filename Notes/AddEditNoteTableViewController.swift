@@ -14,9 +14,13 @@ import CoreLocation
 class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDelegate {
 
     var locationManager:CLLocationManager!
-    var latitude: Double!
-    var longitude: Double!
+    var latitude: Float?
+    var longitude: Float?
 
+    @IBAction func BtLocalisation(_ sender: Any) {
+        print("clique clique")
+        determineMyCurrentLocation()
+    }
     
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var titre: UITextField!
@@ -35,19 +39,18 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
         
         super.viewDidLoad()
 
-      
-
-        
-        
-        //var locManager = CLLocationManager()
-        //locManager.requestWhenInUseAuthorization()
-        
-
-        
-        
         if let note = note {//edit mode
             titre.text = note.title
             notes.text = note.content
+            print("zkjmrzer")
+            latitude = note.latitude
+            longitude = note.longitude
+            
+            if let latitude = latitude {
+                determineMyCurrentLocation()
+            }
+            //print(longitude)
+            
         }
 
         // Uncomment the following line to preserve selection between presentations
@@ -135,14 +138,20 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "saveUnwind"{
-            note = Notes(title: titre.text!, date:Date() , content: notes.text!, latitude: 2, longitude: 1)
+            if  let latitude = latitude{
+                note = Notes(id: 12, title: titre.text!, date:Date() , content: notes.text!, latitude: Float(latitude), longitude: Float(longitude!))
+
+            }else{
+                note = Notes(id: 12, title: titre.text!, date:Date() , content: notes.text!)
+
+            }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        determineMyCurrentLocation()
+        
     }
     
     func determineMyCurrentLocation() {
@@ -170,19 +179,24 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
         
         let annotation = MKPointAnnotation()
         let initialLocation = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
-        let initi = CLLocation(latitude : userLocation.coordinate.latitude, longitude : userLocation.coordinate.longitude)
-        
+        var initi:CLLocation
+        if latitude != nil && longitude != nil {
+            initi = CLLocation(latitude : Double(latitude!), longitude : Double(longitude!))
+        }else{
+            initi = CLLocation(latitude : userLocation.coordinate.latitude, longitude : userLocation.coordinate.longitude)
+        }
+
         
         print("Latitude \(userLocation.coordinate.latitude)")
         annotation.coordinate = initialLocation
         annotation.title = "ICI"
-        annotation.subtitle = " je suis ici"
+        annotation.subtitle = "Vous êtes ici"
         map.addAnnotation(annotation);
         centerMapOnLocation(location: initi)
         
         
-        latitude = userLocation.coordinate.latitude
-        longitude = userLocation.coordinate.longitude
+        latitude = Float(userLocation.coordinate.latitude)
+        longitude = Float(userLocation.coordinate.longitude)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)

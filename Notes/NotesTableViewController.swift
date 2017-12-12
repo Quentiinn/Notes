@@ -24,7 +24,7 @@ class NotesTableViewController: UITableViewController {
             
             for each in data {
                 print("Title : \(each.title!)\n")
-                let n: Notes = Notes(title: each.title!, date: each.date!, content: each.content!, latitude: each.latitude, longitude: each.longitude)
+                let n: Notes = Notes(id: each.id, title: each.title!, date: each.date!, content: each.content!, latitude: each.latitude, longitude: each.longitude)
                 notes.append(n)
             }
         }catch{
@@ -134,9 +134,8 @@ class NotesTableViewController: UITableViewController {
             let sourceTableViewController = segue.source as! AddEditNoteTableViewController
             if let notes = sourceTableViewController.note{
                 if let selectedIndexPath = tableView.indexPathForSelectedRow{
-                    
-                    
-                    
+                    print("latitude \(sourceTableViewController.latitude)")
+                    //print("longitude \(sourceTableViewController.longitude)")
                     // si clique sur un champ
                     self.notes[selectedIndexPath.row] = notes
                     tableView.reloadData()
@@ -150,8 +149,15 @@ class NotesTableViewController: UITableViewController {
                     note.title = notes.title
                     note.content = notes.content
                     note.date = Date()
-                    note.latitude = 12
-                    note.longitude = 122
+                    if let latitude = sourceTableViewController.latitude{
+                        note.latitude = latitude
+                    }
+                    
+                    if let longitude = sourceTableViewController.longitude{
+                        note.longitude = longitude
+                    }
+                    
+                    
                     
                     appDelegate.saveContext()
                     
@@ -160,15 +166,6 @@ class NotesTableViewController: UITableViewController {
                     tableView.reloadData()
                 }
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
         }
     }
 }
