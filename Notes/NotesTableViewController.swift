@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreData
+
 
 class NotesTableViewController: UITableViewController {
     /*var notes: [Notes] = [
@@ -89,8 +91,35 @@ class NotesTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            notes.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            deleteNote(forRowAt: indexPath)
+            
+           
+            
+            /*do{
+                data = try context.fetch(Note.fetchRequest())
+                for each in data {
+                    for i in 0 ... notes.count-1 {
+                        print(notes[i].id)
+                        if notes[i].id == each.id{
+                            let valeur = notes[indexPath.row]
+                            context.deletedObjects(valeur )
+    
+                            appDelegate.saveContext()
+                            notes.remove(at: i)
+                            tableView.deleteRows(at: [indexPath], with: .fade)
+                            break
+                        }
+                    }
+                    /*if each.id == notes.index(after: indexPath.row){
+                     
+                    }*/
+                }
+            }catch{
+                
+            }*/
+            //context.delete(notes[indexPath.row])
+           
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
@@ -104,7 +133,30 @@ class NotesTableViewController: UITableViewController {
         notes.insert(movedNote, at: to.row)
         tableView.reloadData()
     }
- 
+    
+    
+    func deleteNote(forRowAt index: IndexPath){
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                    print("id base de donnée \(data.value(forKey: "id") as! Int)")
+                    print("id du tableau \(notes[index.row].id)")
+                    if data.value(forKey: "id") as! Int == notes[index.row].id{
+                        print("efface \(notes[index.row].title)")
+                        
+                        notes.remove(at: index.row)
+                        tableView.deleteRows(at: [index], with: .fade)
+                        context.delete(data)
+                        appDelegate.saveContext()
+                        tableView.reloadData()
+                        return
+                    }
+            }
+        } catch {
+            print("Failed")
+        }
+    }
 
     /*
     // Override to support conditional rearranging of the table view.
@@ -129,23 +181,23 @@ class NotesTableViewController: UITableViewController {
         }
     }
     
+    
     @IBAction func unwindFromAddEditNoteController(segue: UIStoryboardSegue){
         if segue.identifier == "saveUnwind"{
             let sourceTableViewController = segue.source as! AddEditNoteTableViewController
             if let notes = sourceTableViewController.note{
                 if let selectedIndexPath = tableView.indexPathForSelectedRow{
-                    print("latitude \(sourceTableViewController.latitude)")
-                    //print("longitude \(sourceTableViewController.longitude)")
                     // si clique sur un champ
                     self.notes[selectedIndexPath.row] = notes
                     tableView.reloadData()
                 }else{
                     //clique sur +
+                    
                     self.notes.append(notes)
-                    print(notes.title)
+                    //print(notes.title)
                     //Ajout de note dans la bdd
                     let note = Note(context: context)
-                    
+                    note.id = notes.id
                     note.title = notes.title
                     note.content = notes.content
                     note.date = Date()
@@ -156,8 +208,6 @@ class NotesTableViewController: UITableViewController {
                     if let longitude = sourceTableViewController.longitude{
                         note.longitude = longitude
                     }
-                    
-                    
                     
                     appDelegate.saveContext()
                     

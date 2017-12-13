@@ -88,6 +88,9 @@
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="testTitleChanged:" destination="V8H-8d-Tx5" eventType="editingChanged" id="PFN-nc-6yD"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -96,19 +99,22 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Notes" id="pUG-T2-AVc">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ia7-rk-81G">
-                                        <rect key="frame" x="0.0" y="155.5" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="199" id="ia7-rk-81G">
+                                        <rect key="frame" x="0.0" y="155.5" width="375" height="199"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ia7-rk-81G" id="UAe-F2-PUg">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="198.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qTG-od-jG9">
-                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
+                                                    <rect key="frame" x="16" y="10" width="343" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="testNotesChanged:" destination="V8H-8d-Tx5" eventType="editingChanged" id="Phm-q7-5SH"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -118,7 +124,7 @@
                             <tableViewSection headerTitle="Localisation" id="suP-c0-NLY">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="229" id="S94-IN-t5P">
-                                        <rect key="frame" x="0.0" y="255.5" width="375" height="229"/>
+                                        <rect key="frame" x="0.0" y="410.5" width="375" height="229"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S94-IN-t5P" id="PWV-qT-XE7">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="228.5"/>
@@ -153,13 +159,14 @@
                                 <segue destination="hGT-oQ-COm" kind="unwind" unwindAction="unwindFromAddEditNoteControllerWithSegue:" id="0wu-eI-8j7"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="oG8-7p-X5N">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="oG8-7p-X5N">
                             <connections>
                                 <segue destination="hGT-oQ-COm" kind="unwind" identifier="saveUnwind" unwindAction="unwindFromAddEditNoteControllerWithSegue:" id="mwr-KZ-aqb"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="BtSave" destination="oG8-7p-X5N" id="7mB-Ta-z1I"/>
                         <outlet property="map" destination="owp-at-tnr" id="f89-Xw-LYi"/>
                         <outlet property="notes" destination="qTG-od-jG9" id="Q7P-N8-DVe"/>
                         <outlet property="titre" destination="nmO-lP-fXR" id="zLH-aA-Oij"/>
@@ -168,7 +175,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uX9-gY-oZF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="hGT-oQ-COm" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2928.8000000000002" y="689.5052473763119"/>
+            <point key="canvasLocation" x="3072.8000000000002" y="1007.9460269865068"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dY2-XD-9pG">

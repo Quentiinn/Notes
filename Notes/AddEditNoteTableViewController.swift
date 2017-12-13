@@ -16,16 +16,34 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
     var locationManager:CLLocationManager!
     var latitude: Float?
     var longitude: Float?
-
-    @IBAction func BtLocalisation(_ sender: Any) {
-        print("clique clique")
-        determineMyCurrentLocation()
-    }
+    var id: Int!
     
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var titre: UITextField!
     @IBOutlet weak var notes: UITextField!
     let position = CLLocationManager ()
+    
+
+    @IBOutlet weak var BtSave: UIBarButtonItem!
+    @IBAction func testTitleChanged(_ sender: UITextField) {
+        if (!(sender.text?.isEmpty)! && !(notes.text?.isEmpty)!){
+            BtSave.isEnabled = true
+        }
+    }
+    
+    
+    @IBAction func testNotesChanged(_ sender: UITextField) {
+        if (!(sender.text?.isEmpty)! && !(titre.text?.isEmpty)!){
+            BtSave.isEnabled = true
+        }
+    }
+    
+    @IBAction func BtLocalisation(_ sender: Any) {
+        print("clique clique")
+        determineMyCurrentLocation()
+    }
+    
+    
 
 
     
@@ -39,18 +57,32 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
         
         super.viewDidLoad()
 
+        
         if let note = note {//edit mode
-            titre.text = note.title
+             titre.text = note.title
             notes.text = note.content
-            print("zkjmrzer")
             latitude = note.latitude
             longitude = note.longitude
+            id = Int(note.id)
             
             if let latitude = latitude {
                 determineMyCurrentLocation()
             }
+        }else{
+            var data = [Note]()
+            do{
+                data = try context.fetch(Note.fetchRequest())
+                var ids = data.count + 1
+                print("id ajout \(ids)")
+                id = ids
+            }catch{
+                print("no")
+            }
             //print(longitude)
             
+        }
+        if (!((titre.text?.isEmpty)!) && !((notes.text?.isEmpty)!)){
+            BtSave.isEnabled = true;
         }
 
         // Uncomment the following line to preserve selection between presentations
@@ -138,11 +170,12 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "saveUnwind"{
+            //print(id)
             if  let latitude = latitude{
-                note = Notes(id: 12, title: titre.text!, date:Date() , content: notes.text!, latitude: Float(latitude), longitude: Float(longitude!))
+                note = Notes(id: (Int16(id)), title: titre.text!, date:Date() , content: notes.text!, latitude: Float(latitude), longitude: Float(longitude!))
 
             }else{
-                note = Notes(id: 12, title: titre.text!, date:Date() , content: notes.text!)
+                note = Notes(id: (Int16(id)), title: titre.text!, date:Date() , content: notes.text!)
 
             }
         }
