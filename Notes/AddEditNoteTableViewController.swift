@@ -17,6 +17,7 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
     var latitude: Float?
     var longitude: Float?
     var id: Int!
+    var loc: Int = 0
     
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var titre: UITextField!
@@ -25,6 +26,9 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
     
 
     @IBOutlet weak var BtSave: UIBarButtonItem!
+    
+    
+    
     @IBAction func testTitleChanged(_ sender: UITextField) {
         if (!(sender.text?.isEmpty)! && !(notes.text?.isEmpty)!){
             BtSave.isEnabled = true
@@ -40,6 +44,7 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
     
     @IBAction func BtLocalisation(_ sender: Any) {
         print("clique clique")
+        loc = 1
         determineMyCurrentLocation()
     }
     
@@ -59,28 +64,32 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
 
         
         if let note = note {//edit mode
-             titre.text = note.title
+            titre.text = note.title
             notes.text = note.content
             latitude = note.latitude
             longitude = note.longitude
             id = Int(note.id)
+            self.navigationItem.title = note.title
             
             if let latitude = latitude {
-                determineMyCurrentLocation()
+                loc = 2;
             }
         }else{
             var data = [Note]()
             do{
                 data = try context.fetch(Note.fetchRequest())
                 var ids = data.count + 1
-                print("id ajout \(ids)")
                 id = ids
             }catch{
                 print("no")
             }
             //print(longitude)
             
+            
+            
         }
+        
+        determineMyCurrentLocation()
         if (!((titre.text?.isEmpty)!) && !((notes.text?.isEmpty)!)){
             BtSave.isEnabled = true;
         }
@@ -175,7 +184,7 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
                 note = Notes(id: (Int16(id)), title: titre.text!, date:Date() , content: notes.text!, latitude: Float(latitude), longitude: Float(longitude!))
 
             }else{
-                note = Notes(id: (Int16(id)), title: titre.text!, date:Date() , content: notes.text!)
+                note = Notes(id: (Int16(id)), title: titre.text!, date:Date() , content: notes.text! , latitude: 48.866667 , longitude: 2.333333)
 
             }
         }
@@ -207,20 +216,34 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
         
         // manager.stopUpdatingLocation()
         
-        print("user latitude = \(userLocation.coordinate.latitude)")
-        print("user longitude = \(userLocation.coordinate.longitude)")
         
         let annotation = MKPointAnnotation()
-        let initialLocation = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
         var initi:CLLocation
-        if latitude != nil && longitude != nil {
-            initi = CLLocation(latitude : Double(latitude!), longitude : Double(longitude!))
-        }else{
+        let initialLocation: CLLocationCoordinate2D
+        switch loc {
+        case 1:
+            initialLocation = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
             initi = CLLocation(latitude : userLocation.coordinate.latitude, longitude : userLocation.coordinate.longitude)
+            latitude = Float(userLocation.coordinate.latitude)
+            longitude = Float(userLocation.coordinate.longitude)
+        case 2:
+            initialLocation = CLLocationCoordinate2DMake(Double(latitude!), Double(longitude!))
+            initi = CLLocation(latitude : Double(latitude!), longitude : Double(longitude!))
+        
+        case 0 :
+            initialLocation = CLLocationCoordinate2DMake(48.866667, 2.333333)
+            initi = CLLocation(latitude : 48.866667, longitude : 2.333333)
+            latitude = 48.866667
+            longitude = 2.333333
+        default:
+            initialLocation = CLLocationCoordinate2DMake(48.866667, 2.333333)
+            initi = CLLocation(latitude : 48.866667, longitude : 2.333333)
+            latitude = 48.866667
+            longitude = 2.333333
         }
+        
 
         
-        print("Latitude \(userLocation.coordinate.latitude)")
         annotation.coordinate = initialLocation
         annotation.title = "ICI"
         annotation.subtitle = "Vous êtes ici"
@@ -228,8 +251,7 @@ class AddEditNoteTableViewController: UITableViewController, CLLocationManagerDe
         centerMapOnLocation(location: initi)
         
         
-        latitude = Float(userLocation.coordinate.latitude)
-        longitude = Float(userLocation.coordinate.longitude)
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)

@@ -25,7 +25,6 @@ class NotesTableViewController: UITableViewController {
             data = try context.fetch(Note.fetchRequest())
             
             for each in data {
-                print("Title : \(each.title!)\n")
                 let n: Notes = Notes(id: each.id, title: each.title!, date: each.date!, content: each.content!, latitude: each.latitude, longitude: each.longitude)
                 notes.append(n)
             }
@@ -140,10 +139,7 @@ class NotesTableViewController: UITableViewController {
         do {
             let result = try context.fetch(request)
             for data in result as! [NSManagedObject] {
-                    print("id base de donnée \(data.value(forKey: "id") as! Int)")
-                    print("id du tableau \(notes[index.row].id)")
                     if data.value(forKey: "id") as! Int == notes[index.row].id{
-                        print("efface \(notes[index.row].title)")
                         
                         notes.remove(at: index.row)
                         tableView.deleteRows(at: [index], with: .fade)

@@ -82,17 +82,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nmO-lP-fXR">
-                                                    <rect key="frame" x="16" y="7" width="343" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nmO-lP-fXR">
+                                                    <rect key="frame" x="10" y="5" width="355" height="33.5"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
                                                         <action selector="testTitleChanged:" destination="V8H-8d-Tx5" eventType="editingChanged" id="PFN-nc-6yD"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="nmO-lP-fXR" secondAttribute="bottom" constant="5" id="UuE-8E-ZXc"/>
+                                                <constraint firstAttribute="trailing" secondItem="nmO-lP-fXR" secondAttribute="trailing" constant="10" id="VyQ-qa-HPt"/>
+                                                <constraint firstItem="nmO-lP-fXR" firstAttribute="top" secondItem="Ci9-lH-Gx3" secondAttribute="top" constant="5" id="nrY-uS-dRh"/>
+                                                <constraint firstItem="nmO-lP-fXR" firstAttribute="leading" secondItem="Ci9-lH-Gx3" secondAttribute="leading" constant="10" id="qDZ-pq-4jC"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -106,17 +111,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="198.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qTG-od-jG9">
-                                                    <rect key="frame" x="16" y="10" width="343" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter content" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qTG-od-jG9">
+                                                    <rect key="frame" x="10" y="10" width="355" height="178.5"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
                                                         <action selector="testNotesChanged:" destination="V8H-8d-Tx5" eventType="editingChanged" id="Phm-q7-5SH"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="qTG-od-jG9" firstAttribute="top" secondItem="UAe-F2-PUg" secondAttribute="top" constant="10" id="nlg-mj-EbM"/>
+                                                <constraint firstItem="qTG-od-jG9" firstAttribute="leading" secondItem="UAe-F2-PUg" secondAttribute="leading" constant="10" id="ulf-1b-dcV"/>
+                                                <constraint firstAttribute="trailing" secondItem="qTG-od-jG9" secondAttribute="trailing" constant="10" id="vMB-SW-EBd"/>
+                                                <constraint firstAttribute="bottom" secondItem="qTG-od-jG9" secondAttribute="bottom" constant="10" id="vbq-jO-jxp"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -130,19 +140,29 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="228.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="owp-at-tnr">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="229"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="owp-at-tnr">
+                                                    <rect key="frame" x="5" y="5" width="365" height="218.5"/>
                                                 </mapView>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bTN-91-tTk">
-                                                    <rect key="frame" x="320" y="188" width="46" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Button"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bTN-91-tTk">
+                                                    <rect key="frame" x="325" y="12" width="38" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="3BJ-Zi-qKV"/>
+                                                        <constraint firstAttribute="width" constant="38" id="ivR-Vm-4ep"/>
+                                                    </constraints>
+                                                    <state key="normal" image="FlecheLocalisation"/>
                                                     <connections>
                                                         <action selector="BtLocalisation:" destination="V8H-8d-Tx5" eventType="touchUpInside" id="9GK-TX-oHa"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="bTN-91-tTk" secondAttribute="trailing" constant="12" id="65X-2U-Eea"/>
+                                                <constraint firstItem="owp-at-tnr" firstAttribute="top" secondItem="PWV-qT-XE7" secondAttribute="top" constant="5" id="FVr-2Y-1lw"/>
+                                                <constraint firstItem="owp-at-tnr" firstAttribute="leading" secondItem="PWV-qT-XE7" secondAttribute="leading" constant="5" id="GzK-Fv-D2o"/>
+                                                <constraint firstAttribute="bottom" secondItem="owp-at-tnr" secondAttribute="bottom" constant="5" id="Jz4-h1-Wd3"/>
+                                                <constraint firstAttribute="trailing" secondItem="owp-at-tnr" secondAttribute="trailing" constant="5" id="N4o-sR-sIa"/>
+                                                <constraint firstItem="bTN-91-tTk" firstAttribute="top" secondItem="PWV-qT-XE7" secondAttribute="top" constant="12" id="es4-vp-ncG"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -212,6 +232,9 @@
             <point key="canvasLocation" x="732" y="164"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="FlecheLocalisation" width="128" height="128"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="qMt-sq-9hi"/>
     </inferredMetricsTieBreakers>
